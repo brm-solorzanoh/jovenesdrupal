@@ -1,0 +1,7 @@
+name = BRM Menú Youth
+description = Module customs menú
+
+package = Modulos Customs Youth
+version = VERSION
+core = 7.x
+files[] = BRM_millerlite.module

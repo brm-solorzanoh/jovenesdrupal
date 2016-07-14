@@ -1,0 +1,34 @@
+<?php
+function BRM_youth_block_info() {
+    $blocks = array();
+    $blocks['menuP'] = array(
+       'info' => t("Menu principal: Modulo estatico del menu en HOME"),
+       'cache' => DRUPAL_CACHE_CUSTOM,
+        );
+    return $blocks;
+}
+
+function BRM_youth_block_view($delta = '') {
+    $block = array();
+    $variables = array();
+    switch ($delta) {
+      case 'menuP':
+      	$varMenu = menu_tree_all_data('main-menu');
+      	foreach ($varMenu as $key => $value) {
+      		if($value['link']['hidden'] == 0){
+      			$variables['menu'][drupal_get_path_alias($value["link"]["link_path"])]['title']=$value["link"]["link_title"];
+      	}
+      	}
+        $block['content'] = theme('menuPrincipal', $variables);
+      break;
+    }
+  return $block;
+}
+
+function BRM_youth_theme(){
+    return array(
+      'menuPrincipal' => array(
+        'template' => 'theme/menuPrincipal'
+      ),
+    );
+}
