@@ -57,8 +57,13 @@ function adaptivetheme_subtheme_process_html(&$vars) {
 function jovenesTheme_preprocess_page(&$vars) {
 	$vars['site_logo'] = '<a href="/jovenes/" class="active"><img class="site-logo img-responsive" typeof="foaf:Image" src="http://localhost/jovenes/logo-youth.svg" alt="Jóvenes Nestlé" /></a>';
 	$vars['content']['site_logo']['#attributes']['class'][] = 'haspe';
-	drupal_add_css(path_to_theme() . '/css/youth.min.css' , array('group' => CSS_DEFAULT, 'every_page' => TRUE));
 	
+  drupal_add_css(path_to_theme() . '/css/youth.min.css' , array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+	
+  //drupal_add_js(path_to_theme() . '/js/libs.youth.min.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  //drupal_add_js(path_to_theme() . '/js/jquery.validate.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  drupal_add_js(path_to_theme() . '/js/youth.ini.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  
 }
 function adaptivetheme_subtheme_process_page(&$vars) {
 }
