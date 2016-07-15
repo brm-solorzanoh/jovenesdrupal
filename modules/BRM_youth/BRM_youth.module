@@ -30,7 +30,10 @@ function BRM_youth_block_view($delta = '') {
       		$idtx = 0;
       	}elseif(arg(0)=="taxonomy" && arg(1)=="term" && arg(1)!=NULL){
       		$idtx = arg(2);
-      	}
+      	}elseif(arg(0)=="node" && arg(1)!=NULL){
+          $ndox = node_load(arg(1));
+          $idtx = $ndox->field_tags['und'][0]['tid'];
+        }
       	$variables['data'] = get_data_slider($idtx);
       	$block['content'] = theme('slider', $variables);
       break;

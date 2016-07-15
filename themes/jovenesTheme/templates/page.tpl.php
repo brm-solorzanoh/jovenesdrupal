@@ -29,6 +29,8 @@
     </section>
     <?php print render($page['menu_bar']); ?>
   </header>
+  <!--Slider PPAl-->
+  <?php print render($page['leaderboard']); ?>
   <!-- !Main Content -->
             <?php if ($content = render($page['content'])): ?>
               <div id="content" class="region">
