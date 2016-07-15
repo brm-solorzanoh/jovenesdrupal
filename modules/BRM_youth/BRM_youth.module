@@ -5,6 +5,10 @@ function BRM_youth_block_info() {
        'info' => t("Menu principal: Modulo estatico del menu en HOME"),
        'cache' => DRUPAL_CACHE_CUSTOM,
         );
+    $blocks['sliderHome'] = array(
+       'info' => t("Slider Home: Modulo slider en HOME"),
+       'cache' => DRUPAL_CACHE_CUSTOM,
+        );
     return $blocks;
 }
 
@@ -17,9 +21,18 @@ function BRM_youth_block_view($delta = '') {
       	foreach ($varMenu as $key => $value) {
       		if($value['link']['hidden'] == 0){
       			$variables['menu'][drupal_get_path_alias($value["link"]["link_path"])]['title']=$value["link"]["link_title"];
-      	}
+      		}
       	}
         $block['content'] = theme('menuPrincipal', $variables);
+      break;
+      case 'sliderHome':
+      	if(arg(0)=="node" && arg(1)==NULL ){
+      		$idtx = 0;
+      	}elseif(arg(0)=="taxonomy" && arg(1)=="term" && arg(1)!=NULL){
+      		$idtx = arg(2);
+      	}
+      	$variables['data'] = get_data_slider($idtx);
+      	$block['content'] = theme('slider', $variables);
       break;
     }
   return $block;
@@ -30,5 +43,35 @@ function BRM_youth_theme(){
       'menuPrincipal' => array(
         'template' => 'theme/menuPrincipal'
       ),
+      'slider' => array(
+        'template' => 'theme/slider'
+      ),
     );
+}
+
+function get_data_slider($idtx){
+	$datax = array();
+	if($idtx == 0){
+		$datax = array();
+		$result = db_select('field_data_field_destacado_en_home_', 'ho')
+	    ->fields('ho',array('entity_id'))
+	    ->condition('field_destacado_en_home__value', 1,'=')
+	    ->execute();
+		while($record = $result->fetchAssoc()) {
+        	$datax[] = node_load($record['entity_id']);
+    	}
+    	return $datax;	
+	}else{
+		$datax = array();
+		$query = db_select('field_data_field_destacado_', 'hs');
+		$query->join('taxonomy_index', 'ti', 'hs.entity_id = ti.nid');
+	    $result = $query->fields('ti',array('nid'))
+	    ->condition('hs.field_destacado__value', 1,'=')
+	    ->condition('ti.tid', $idtx,'=')
+	    ->execute();
+		while($record = $result->fetchAssoc()) {
+        	$datax[] = node_load($record['nid']);
+    	}
+    	return $datax;	
+	}
 }
