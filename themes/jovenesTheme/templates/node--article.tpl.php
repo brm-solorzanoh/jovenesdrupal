@@ -106,6 +106,7 @@
  */
 hide($content['comments']);
 hide($content['links']);
+//var_dump($node->body);
 ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> container-fluid" <?php print $attributes; ?>>
     <!--más información-->
@@ -120,8 +121,10 @@ hide($content['links']);
         </h1>
       <?php endif; ?>
     <div<?php print $content_attributes; ?>>
-      <?php var_dump($node->field_image['und'][0]['uri']); ?>
-    <?php print render($content); ?>
+     
+      <img src="<?php print file_create_url($node->field_image['und'][0]['uri'])?>" alt="<?php print file_create_url($node->field_image['und'][0]['alt'])?>" title="<?php print file_create_url($node->field_image['und'][0]['title'])?>" class="img-responsive">
+    <?php print render($node->body["und"][0]['value']); ?>
+    <?php /*print render($content);*/ ?>
   </div>
     </article>
   </section>
