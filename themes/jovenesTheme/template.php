@@ -60,8 +60,9 @@ function jovenesTheme_preprocess_page(&$vars) {
 	
   drupal_add_css(path_to_theme() . '/css/youth.min.css' , array('group' => CSS_DEFAULT, 'every_page' => TRUE));
 	
-  //drupal_add_js(path_to_theme() . '/js/libs.youth.min.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
-  //drupal_add_js(path_to_theme() . '/js/jquery.validate.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  drupal_add_js(path_to_theme() . '/js/jquery.bxslider.min.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  drupal_add_js(path_to_theme() . '/js/jquery.cookie.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
+  
   drupal_add_js(path_to_theme() . '/js/youth.ini.js', array( 'scope' => 'header', 'weight' => -20 , 'group' => JS_LIBRARY, 'preprocess' => FALSE));
   
 }
